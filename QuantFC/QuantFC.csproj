@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7F852D1A-3C80-4BFD-89BB-324E57CC69FD}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>QuantFCLab</RootNamespace>
-    <AssemblyName>QuantFCLab</AssemblyName>
+    <ProjectGuid>{96C69BD7-1645-4246-9614-65229B779E45}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QuantFC</RootNamespace>
+    <AssemblyName>QuantFC</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,17 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Graph.cs" />
+    <Compile Include="Graph.EvalEnded.cs" />
+    <Compile Include="Graph.EvalFailed.cs" />
+    <Compile Include="Graph.EvalStart.cs" />
+    <Compile Include="Graph.IReadOnlyList.cs" />
+    <Compile Include="GraphX.cs" />
+    <Compile Include="GraphX.Dot.cs" />
+    <Compile Include="IElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\QuantFC\QuantFC.csproj">
-      <Project>{96c69bd7-1645-4246-9614-65229b779e45}</Project>
-      <Name>QuantFC</Name>
-    </ProjectReference>
+    <Compile Include="Reducer.cs" />
+    <Compile Include="ReducerX.cs" />
+    <Compile Include="Selector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
