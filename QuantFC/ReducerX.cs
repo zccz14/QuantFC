@@ -5,7 +5,7 @@ namespace QuantFC {
 	{
 		public static int Create<T>(this Graph<T> graph, string title, Func<T, T> transformer)
 		{
-			graph.Elements.Add(new Graph<T>.GraphElement(new Reducer<T>(title, transformer), 1));
+			graph.Elements.Add(new Graph<T>.GraphElement(new Reducer<T>(title, transformer), graph));
 			return graph.Count - 1;
 		}
 	}

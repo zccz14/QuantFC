@@ -2,6 +2,7 @@
 	public interface IElement
 	{
 		string Title { get; }
+		int NextCount { get; }
 	}
 
 	public interface IElement<T>: IElement

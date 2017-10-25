@@ -1,77 +1,46 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using QuantFC;
 
 namespace QuantFCLab {
 	class Program {
-		static bool isPrime(int n)
+		static void Main (string[] args)
 		{
-			if (n <= 1) return false;
-			for (int i = 2; i * i <= n; i++)
+			var G = new Graph<Context>("Model");
+			var i0 = G.Create("Bar Type", ctx => ctx.Min1.Close.Last() > ctx.Min1.Open.Last());
+			
+			var i1 = G.Import(new Switch<Context>("当前 K 线类型", ctx => ctx.Min1.Close.Last() > ctx.Min1.Open.Last(),
+				ctx => ctx.Min1.Close.Last() < ctx.Min1.Open.Last()));
+			G.Elements[i1].Next[0].Label = "阴线";
+			G.Elements[i1].Next[1].Label = "阳线";
+			G.Elements[i1].Next[2].Label = "十字星";
+			G.SetLink(i1, 2, i0);
+			G.SetLink(i1, 0, i0);
+			G.DefaultStart = i1;
+			var importer = new DataImporter();
+			var context = new Context();
+			importer.Data += (sender, bar) =>
 			{
-				if (n % i == 0) return false;
-			}
-			return true;
-		}
-
-		static void Main (string[] args) {
-			var G = new Graph<int>("Add(x)");
-			Commit1(G);
-			var i1 = G.Create("is x - 2 a prime?", x => isPrime(x - 2));
-			G.SetLink(3, 0, i1);
-			G.SetLink(i1, 0, 2);
-			for (int i = 0; i < 1000000; i++)
-				G.Run(i);
-			File.WriteAllText("G.svg", ToSVG(G));
-			Process.Start("G.svg");
-		}
-
-		private static string ToSVG (Graph<int> G) {
-			var dot = new ProcessStartInfo("dot") {
-				RedirectStandardInput = true,
-				RedirectStandardOutput = true,
-				UseShellExecute = false,
-				Arguments = "-T svg"
+				context.Min1.DateTime.Add(bar.DateTime);
+				context.Min1.Open.Add(bar.Open);
+				context.Min1.High.Add(bar.High);
+				context.Min1.Low.Add(bar.Low);
+				context.Min1.Close.Add(bar.Close);
+				context.Min1.Volume.Add(bar.Volume);
+				context.Min1.OpenInterest.Add(bar.OpenInterest);
+				G.Run(context);
 			};
-			var process = new Process {
-				StartInfo = dot
-			};
-			process.Start();
-			process.StandardInput.WriteLine(G.ToDotString());
-			process.StandardInput.Close();
-			var output = process.StandardOutput.ReadToEnd();
-			return output;
-		}
 
-		private static void Commit1 (Graph<int> G) {
-			var i1 = G.Create("x + 2 is prime?", x => isPrime(x + 2));
-			var i2 = G.Create("x := x - 1", x => x - 1);
-			var i3 = G.Create("x := x + 1", x => x + 1);
-			var i4 = G.Create("x is prime?", x => isPrime(x));
-			var i5 = G.Create("No", x => x);
-			var i6 = G.Create("Yes", x => x);
-			G.SetLink(i1, 0, i2);
-			G.SetLink(i1, 0, i3);
-			G.SetLink(i4, 0, i5);
-			G.SetLink(i4, 1, i6);
-			G.DefaultStart = i4;
-			G.SetLink(i4, 0, i1);
-			G.SetLink(i4, 1, i1);
-			G.SetLink(i4, 0, null);
+			importer.ReadCSV(@"D:\data\rb\min_1.csv");
+			Console.WriteLine(G.ToJson(true));
+//			Console.WriteLine(context.ToJson());
 		}
-
-		private static void G_RunningEnded (object sender, Graph<int>.RunningEndedEventArgs e)
-		{
-			var G = sender as Graph<int>;
-			Console.WriteLine($"{e.InitialState} -> {e.FinalState} {e.Path.Select(i => G.Elements[i].Element.Title).Aggregate("", (pre, cur) => pre + $"[{cur}]")}");
-		}
-
 	}
 }
