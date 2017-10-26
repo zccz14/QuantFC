@@ -1,0 +1,12 @@
+{
+  "name": "dot-live-server",
+  "version": "0.0.0",
+  "description": "DotLiveServer",
+  "main": "app.js",
+  "author": {
+    "name": "zccz14"
+  },
+  "dependencies": {
+    "live-server": "^1.2.0"
+  }
+}
