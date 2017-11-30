@@ -50,10 +50,16 @@
     <Compile Include="Graph.EvalFailed.cs" />
     <Compile Include="Graph.EvalStart.cs" />
     <Compile Include="Graph.IReadOnlyList.cs" />
+    <Compile Include="GraphNode.cs" />
     <Compile Include="GraphX.cs" />
     <Compile Include="GraphX.Dot.cs" />
     <Compile Include="IElement.cs" />
+    <Compile Include="IGraphNode.cs" />
     <Compile Include="IModel.cs" />
+    <Compile Include="INode.cs" />
+    <Compile Include="IRedirectionNode.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reducer.cs" />
     <Compile Include="ReducerX.cs" />
