@@ -9,7 +9,7 @@ namespace QuantFC
         public Graph(IReadOnlyList<IGraphNode> nodes)
         {
             Nodes = nodes;
-            IsImplemented = this.ImplementedNodes().Count() == nodes.Count;
+            IsImplemented = nodes.Count(x => x.IsImplemented) == nodes.Count;
         }
 
         public IEnumerator<IGraphNode> GetEnumerator() => Nodes.GetEnumerator();
