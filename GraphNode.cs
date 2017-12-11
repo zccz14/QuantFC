@@ -19,6 +19,7 @@
         public string GetLabel(int index) => InnerNode.GetLabel(index);
 
         public IGraphNode GetNext(int index) => NextNodes[index];
+        public bool IsImplemented => InnerNode.IsImplemented;
 
         private INode InnerNode { get; }
         public IGraphNode[] NextNodes { get; }

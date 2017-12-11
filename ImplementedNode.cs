@@ -10,6 +10,7 @@
         public string Title => InnerNode.Title;
         public int Count => InnerNode.Count;
         public string GetLabel(int index) => InnerNode.GetLabel(index);
+        public bool IsImplemented => true;
 
         public abstract int Run();
 

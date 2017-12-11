@@ -12,6 +12,7 @@
         public string Title { get; }
         public int Count { get; }
         public string GetLabel(int index) => Labels[index];
+        public bool IsImplemented => false;
 
         private string[] Labels { get; }
     }

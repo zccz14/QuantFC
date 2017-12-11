@@ -38,5 +38,9 @@ namespace QuantFC
             }
             return new Graph(nodes);
         }
+
+        public void SubstituteNode(int index, INode node) => Nodes[index] = node;
+
+        public INode GetNode(int index) => Nodes[index];
     }
 }
