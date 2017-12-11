@@ -1,11 +1,17 @@
 ﻿namespace QuantFC
 {
-    public class GraphNode : IGraphNode
+    internal class GraphNode : IGraphNode
     {
         public GraphNode(INode innerNode, params IGraphNode[] nextNodes)
         {
             InnerNode = innerNode;
             NextNodes = nextNodes;
+        }
+
+        public GraphNode(INode innerNode)
+        {
+            InnerNode = innerNode;
+            NextNodes = new IGraphNode[innerNode.Count];
         }
 
         public string Title => InnerNode.Title;
@@ -15,6 +21,6 @@
         public IGraphNode GetNext(int index) => NextNodes[index];
 
         private INode InnerNode { get; }
-        private IGraphNode[] NextNodes { get; }
+        public IGraphNode[] NextNodes { get; }
     }
 }
