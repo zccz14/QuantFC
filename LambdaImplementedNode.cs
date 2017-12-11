@@ -2,9 +2,9 @@
 
 namespace QuantFC
 {
-    public class LambdaImplementedNodeImpl : ImplementedNode
+    public class LambdaImplementedNode : ImplementedNode
     {
-        public LambdaImplementedNodeImpl(INode innerNode, Func<int> implementation) : base(innerNode)
+        public LambdaImplementedNode(INode innerNode, Func<int> implementation) : base(innerNode)
         {
             Implementation = implementation;
         }
