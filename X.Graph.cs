@@ -20,6 +20,10 @@ namespace QuantFC
                 {
                     node = node.GetNext(((IImplementedNode) node).Run());
                 }
+                else
+                {
+                    break;
+                }
             }
         }
     }
